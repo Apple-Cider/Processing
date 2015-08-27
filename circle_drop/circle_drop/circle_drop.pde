@@ -26,7 +26,9 @@ class Circle {
     this.radius = radius;
   }
   
-  void setRadius() { radiusSet = true; }
+  void setRadius() {
+    radiusSet = true;
+  }
   
   void draw() {
     ellipse(location.x, location.y, radius, radius);
@@ -42,7 +44,8 @@ class Circle {
   // must the circle exist?
   boolean offScreen() {
     float lowestRenderVal = location.y - radius;
-    return lowestRenderVal > APP_HEIGHT;
+    println("  circle off screen? " + (lowestRenderVal > APP_HEIGHT));
+    return (lowestRenderVal > APP_HEIGHT);
   }
 }
 
@@ -52,6 +55,7 @@ ArrayList<Circle> circles;
 
 void setup() {
   size(APP_WIDTH, APP_HEIGHT);
+  frameRate(10);
   stroke(CIRCLE_STROKE_COLOR);
   fill(CIRCLE_FILL_COLOR);
   circles = new ArrayList<Circle>();
@@ -63,16 +67,20 @@ void draw() {
   Circle c;
   for(int i = 0; i < circles.size(); i++) {
     c = circles.get(i);
-    c.fall();
+    /*c.fall();
     if (c.offScreen()) {
       circles.remove(i);
     } else {
       c.draw();
-    }
+    }*/
+    c.draw();
   }
 }
 
 void mousePressed() {
+  Circle newCircle = new Circle(mouseX, mouseY);
+  circles.add(newCircle);
+  /*
   int x = mouseX;
   int y = mouseY;
   Circle c = new Circle(x, y);
@@ -80,6 +88,22 @@ void mousePressed() {
   while(mousePressed) {
     r = dist(x, y, mouseX, mouseY);
     c.changeRadius(r);
+    println("radius change: " + r);
   }
   c.setRadius();
+  */
+}
+
+void mouseDragged() {
+  Circle newCircle = circles.get(circles.size() - 1);
+  float x = newCircle.location.x;
+  float y = newCircle.location.y;
+  float r = dist(x, y, mouseX, mouseY);
+  newCircle.changeRadius(r);
+  println("radius change: " + r);
+}
+
+void mouseReleased() {
+  Circle newCircle = circles.get(circles.size() - 1);
+  newCircle.radiusSet = true;
 }
