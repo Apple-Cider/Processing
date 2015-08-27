@@ -3,7 +3,7 @@
  *
  */
  
- static final color BACKGROUND_COLOR    = #999966;
+ static final color BACKGROUND_COLOR    = #B0C4DE;
  static final color CIRCLE_FILL_COLOR   = #CBCBCB;
  static final color CIRCLE_STROKE_COLOR = #333333;
  static final color DEBUG_ALERT_A_COLOR = #FF0000;
@@ -12,7 +12,7 @@
  static final int APP_WIDTH  = 800;
  static final int APP_HEIGHT = 550;
  
- static final PVector ACCELERATION = new PVector(0,0.05);
+ static final PVector ACCELERATION = new PVector(0,0.08);
 
 class Circle {
   PVector location;
@@ -42,7 +42,8 @@ class Circle {
   
   // the rendering function for the circle
   void draw() {
-    ellipse(location.x, location.y, radius, radius);
+    ellipse(location.x, location.y, radius * 2, radius * 2);
+    if (!radiusSet) line(location.x, location.y, mouseX, mouseY);
   }
   
   // once a mouse lets go of a circle, gravity, like time or hunger, becomes
@@ -102,6 +103,7 @@ void mouseDragged() {
   float x = newCircle.location.x;
   float y = newCircle.location.y;
   float r = dist(x, y, mouseX, mouseY);
+  //line(x, y, mouseX, mouseY);
   newCircle.changeRadius(r);
   debugMouseDragged(mouseX, mouseY);
 }
@@ -121,8 +123,8 @@ void debugMouseDragged(int mX, int mY) {
   fill(DEBUG_ALERT_A_COLOR);
   ellipse(x, y, 2, 2);
   ellipse(mX, mY, 2, 2);
-  stroke(DEBUG_ALERT_B_COLOR);
-  line(x, y, mX, mY);
+  //stroke(DEBUG_ALERT_B_COLOR);
+  //line(x, y, mX, mY);
   
-  println("radius change: " + r);
+  //println("radius change: " + r);
 }
