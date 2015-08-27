@@ -5,7 +5,7 @@
  
  static final color BACKGROUND_COLOR    = #999966;
  static final color CIRCLE_FILL_COLOR   = #CBCBCB;
- static final color CIRCLE_STROKE_COLOR = #AAAAAA;
+ static final color CIRCLE_STROKE_COLOR = #333333;
  
  static final int APP_WIDTH  = 800;
  static final int APP_HEIGHT = 550;
@@ -55,7 +55,6 @@ ArrayList<Circle> circles;
 
 void setup() {
   size(APP_WIDTH, APP_HEIGHT);
-  frameRate(10);
   stroke(CIRCLE_STROKE_COLOR);
   fill(CIRCLE_FILL_COLOR);
   circles = new ArrayList<Circle>();
@@ -67,31 +66,18 @@ void draw() {
   Circle c;
   for(int i = 0; i < circles.size(); i++) {
     c = circles.get(i);
-    /*c.fall();
+    c.fall();
     if (c.offScreen()) {
       circles.remove(i);
     } else {
       c.draw();
-    }*/
-    c.draw();
+    }
   }
 }
 
 void mousePressed() {
   Circle newCircle = new Circle(mouseX, mouseY);
   circles.add(newCircle);
-  /*
-  int x = mouseX;
-  int y = mouseY;
-  Circle c = new Circle(x, y);
-  float r;
-  while(mousePressed) {
-    r = dist(x, y, mouseX, mouseY);
-    c.changeRadius(r);
-    println("radius change: " + r);
-  }
-  c.setRadius();
-  */
 }
 
 void mouseDragged() {
