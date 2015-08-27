@@ -18,22 +18,33 @@ class Circle {
   float   radius    = 0;
   boolean radiusSet = false;
   
+  // a circle is initalized with a center point, determined by the user's
+  //    mouse coordinates when they clicked (when they chose to create a
+  //    circle)
   Circle(float x, float y) {
     location = new PVector(x, y);
   }
   
+  // changeRadius, a setter, is called because a user created this circle,
+  //    but hasn't decided how large it ought to be (hasn't let go of the
+  //    mouse button)
   void changeRadius(float radius) {
     this.radius = radius;
   }
   
+  // setRadius is called when a user releases their mouse click,
+  //    signifying the circle has the desired radius
   void setRadius() {
     radiusSet = true;
   }
   
+  // the rendering function for the circle
   void draw() {
     ellipse(location.x, location.y, radius, radius);
   }
   
+  // once a mouse lets go of a circle, gravity, like time or hunger, becomes
+  //   a merciless force that brings the circle to its death
   void fall() {
     if (radiusSet) {
       velocity.add(ACCELERATION);
@@ -41,15 +52,16 @@ class Circle {
     }
   }
   
-  // must the circle exist?
+  // used to determine if the circle should be removed from memory
   boolean offScreen() {
     float lowestRenderVal = location.y - radius;
-    println("  circle off screen? " + (lowestRenderVal > APP_HEIGHT));
+    //println("  circle off screen? " + (lowestRenderVal > APP_HEIGHT));
     return (lowestRenderVal > APP_HEIGHT);
   }
 }
 
 
+// PROGRAM BEHAVIOR
 
 ArrayList<Circle> circles;
 
@@ -74,6 +86,9 @@ void draw() {
     }
   }
 }
+
+
+// CIRCLE CREATION EVENTS
 
 void mousePressed() {
   Circle newCircle = new Circle(mouseX, mouseY);
