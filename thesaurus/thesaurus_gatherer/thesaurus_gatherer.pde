@@ -12,45 +12,60 @@
 
 import controlP5.*;
 
-// request strings
-String apiKey;
+// REST request elements
 String URL;
 String entry = "";
 
-// app ui
+// app UI
 ControlP5 cp5;
-PFont font   = createFont("Myrad Pro", 20);
 
 void setup() {
   size(700,400);
   
-  apiKey = loadStrings("api_key.txt")[0];
+  String apiKey = loadStrings("api_key.txt")[0];
   URL = "http://words.bighugelabs.com/api/2/" + apiKey + "/";
-  //println("api key fetched: " + apiKey);
   
-  cp5 = new ControlP5(this);
-  
-  cp5.addTextfield("entry")
-     .setPosition(20,170)
-     .setSize(200,40)
-     .setFont(font)
-     .setAutoClear(false);
-  
-  textFont(font);     
+  initUI();  
 }
 
 void draw() {
   background(0);
   fill(255);
-  text(entry, 360, 180);
+  //text(entry, 360, 200);
 }
 
-
-void controlEvent(ControlEvent event) {
-  println("got control event from ctrler w/ id " + event.getController().getId());
+public void request() {
+  entry = cp5.get(Textfield.class, "entry").getText();
   
-  if (event.isFrom(cp5.getController("entry"))) {
-    println("this event was triggered by Controller \"entry\"");
-    println("  ... the new value for String \"entry\" is: " + entry);
-  }
+  if (!entry.isEmpty()) {
+    String request = URL + entry + "/json";
+    println("Request issued. URL:");
+    println(URL + entry + "/json");
+  } else {
+    println("entry field blank! can't look up a synonym for no word");
+  }   
+}
+
+void initUI() {
+  cp5 = new ControlP5(this);
+  
+  PFont font = createFont("Myrad Pro", 20);
+  PFont labelFont = createFont("Myrad Pro", 12);
+  textFont(font);
+  
+  cp5.addTextfield("entry")
+     .setPosition(20, 170)
+     .setSize(200, 40)
+     .setFont(font)
+     .setFocus(true)
+     .setAutoClear(false)
+     .getCaptionLabel()
+        .setFont(labelFont);
+  
+  cp5.addBang("request")
+     .setPosition(240, 170)
+     .setSize(80, 40)
+     .getCaptionLabel()
+        .align(ControlP5.CENTER, ControlP5.CENTER)
+        .setFont(labelFont);
 }
