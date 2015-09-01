@@ -1,0 +1,14 @@
+write tests. not the smoothest ticking (sometimes pauses), or the best angular alignment.
+
+time speed-factor slider (& reset button)
+	rough idea on impl:
+		clockTime = (currentTime - timeWhenSpeedChanged) * speedFactor
+digital clock
+ascii clock (promotable to a command line program, the original idea)
+	params:
+		size {small, medium, large}
+		timezone { ... }
+		help
+clock impl menu
+
+further decomposition of program structure. Clocks can render multiple ways...
