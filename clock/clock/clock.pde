@@ -14,7 +14,7 @@ void setup() {
 }
 
 void draw() {
-  background(200);
+  background(#B0C4DE);
   clock.draw();
 }
 
@@ -25,14 +25,17 @@ interface Clock {
 }
 
 class AnalogClock implements Clock {
+  int PIVOT_OFFSET       = -5;
+  int HAND_STROKE_WEIGHT = 2;
+  
   int diameter;
   PShape hourHand, minuteHand, secondHand;
   
   public void setup() {
     diameter   = (width < height ? width : height) * 4 / 5;
-    hourHand   = createHand(0.25, 0.1, #000000);
-    minuteHand = createHand(0.375, 0.0625, #000000);
-    secondHand = createHand(0.375, 0.0416, #FF0000);
+    hourHand   = createHand(0.25, 0.08, #000000, #222222);
+    minuteHand = createHand(0.42, 0.06, #000000, #222222);
+    secondHand = createHand(0.42, 0.04, #AA0000, #FF0000);
   }
   
   public void draw() {
@@ -48,7 +51,8 @@ class AnalogClock implements Clock {
   private void drawClock() {
     pushStyle();
     strokeWeight(5);
-    stroke(#333333);
+    stroke(#222222);
+    fill(#FFFFFF);
     ellipse(0, 0, diameter, diameter);
     popStyle();
     drawTicks();
@@ -90,16 +94,17 @@ class AnalogClock implements Clock {
     drawHand(t, hourHand);
   }
   
-  PShape createHand(float h, float b, color c) {
+  PShape createHand(float h, float b, color s, color f) {
     float x1 = diameter * b / 2,
-          y1 = 0,
+          y1 = PIVOT_OFFSET,
           x2 = 0,
           y2 = diameter * h,
           x3 = diameter * b / 2 * -1,
-          y3 = 0;
+          y3 = PIVOT_OFFSET;
     PShape shape = createShape(TRIANGLE, x1, y1, x2, y2, x3, y3);
-    shape.setStroke(c);
-    shape.setFill(c);
+    shape.setStroke(s);
+    shape.setStrokeWeight(HAND_STROKE_WEIGHT);
+    shape.setFill(f);
     return shape;
   }
   
