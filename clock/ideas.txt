@@ -12,3 +12,8 @@ ascii clock (promotable to a command line program, the original idea)
 clock impl menu
 
 further decomposition of program structure. Clocks can render multiple ways...
+
+
+further abstraction of "clock" idea.
+	basically a cyclical function whose parameter is time.
+	key is: the state of the display should repeat 1, 2, or more times a day.
