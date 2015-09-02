@@ -1,4 +1,4 @@
-write tests. not the smoothest ticking (sometimes pauses), or the best angular alignment.
+write tests.
 
 time speed-factor slider (& reset button)
 	rough idea on impl:

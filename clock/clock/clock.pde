@@ -72,20 +72,21 @@ class AnalogClock implements Clock {
   
   private void drawSecondHand() {
     int s = second(); // [0, 59]
-    float t = s / 59.0;
+    float t = s / 60.0;
     drawHand(t, secondHand);
   }
   
   private void drawMinuteHand() {
     int m = minute(); // [0, 59]
-    float t = m / 59.0;
+    float t = m / 60.0;
     drawHand(t, minuteHand);
   }
   
   private void drawHourHand() {
-    int h = hour(); // [0, 23]
+    int h = hour();   // [0, 23]
+    int m = minute(); // [0, 59]
     h %= 12;
-    float t = h / 12.0;
+    float t = (h + m / 60.0) / 12.0;
     drawHand(t, hourHand);
   }
   
